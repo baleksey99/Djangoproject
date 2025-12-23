@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% load static %}  <!-- подключаем механизм статики -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">  <!-- подключаем CSS -->
+</head>
+<body>
+    <img src="{% static 'images/logo.png' %}" alt="Логотип">  <!-- выводим изображение -->
+    <h1>Добро пожаловать!</h1>
+    <!-- остальной HTML-код -->
+    <script src="{% static 'js/script.js' %}"></script>  <!-- подключаем JS -->
+</body>
+</html>
