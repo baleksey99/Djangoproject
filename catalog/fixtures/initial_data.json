@@ -1,0 +1,55 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "name": "Электроника"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "name": "Книги"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+      "name": "Одежда"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "fields": {
+      "name": "Смартфон X",
+      "price": 29999.00,
+      "category": 1
+    }
+  },
+  {
+    "model": "catalog.product",
+    "fields": {
+      "name": "Ноутбук Y",
+      "price": 79999.00,
+      "category": 1
+    }
+  },
+  {
+    "model": "catalog.product",
+    "fields": {
+      "name": "Роман «Война и мир»",
+      "price": 899.99,
+      "category": 2
+    }
+  },
+  {
+    "model": "catalog.product",
+    "fields": {
+      "name": "Джинсы Levi's",
+      "price": 4999.99,
+      "category": 3
+    }
+  }
+]
