@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Мой магазин{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    {% include "menu.html" %} <!-- Подключаем меню -->
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-light py-3 mt-5">
+        <div class="container">
+            <p>&copy; 2024 Мой магазин. Все права защищены.</p>
+        </div>
+    </footer>
+</body>
+</html>

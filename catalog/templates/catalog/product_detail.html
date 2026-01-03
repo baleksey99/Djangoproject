@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ product.name }} — {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="product-detail">
+    <h1>{{ product.name }}</h1>
+    
+    {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+    {% else %}
+        <p>Изображение отсутствует</p>
+    {% endif %}
+    
+    <p><strong>Цена:</strong> {{ product.price }} руб.</p>
+    <p><strong>Категория:</strong> {{ product.category.name }}</p>
+    <p><strong>Описание:</strong></p>
+    <div class="description">{{ product.description }}</div>
+    
+    <p><strong>Дата создания:</strong> {{ product.created_at|date:"d.m.Y H:i" }}</p>
+    <p><strong>Последнее обновление:</strong> {{ product.updated_at|date:"d.m.Y H:i" }}</p>
+    
+    <a href="{% url 'catalog:home' %}" class="btn btn-secondary">Вернуться на главную</a>
+</div>
+{% endblock %}

@@ -1,11 +1,32 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Главная страница</title>
-</head>
-<body>
-    <h1>Добро пожаловать!</h1>
-    <!-- Ваш контент -->
-</body>
-</html>
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+<h1>Товары</h1>
+
+<div class="products-grid">
+    {% for product in products %}
+        <div class="product-card">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-img">
+            {% endif %}
+            
+            <h3><a href="{% url 'catalog:product_detail' product.pk %}">{{ product.name }}</a></h3>
+            <p class="price">{{ product.price }} руб.</p>
+            
+            <!-- Сокращённое описание (до 100 символов) -->
+            <p class="description">
+                {% if product.description|length > 100 %}
+                    {{ product.description|slice:":100" }}...
+                {% else %}
+                    {{ product.description }}
+                {% endif %}
+            </p>
+            
+            <a href="{% url 'catalog:product_detail' product.pk %}" class="btn">Подробнее</a>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
