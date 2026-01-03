@@ -134,3 +134,6 @@ STATICFILES_DIRS = [
 
 # Папка для собранных статических файлов (используется командой collectstatic)
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
