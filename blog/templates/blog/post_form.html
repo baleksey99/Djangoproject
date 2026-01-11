@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    {% if object %}Редактировать запись{% else %}Создать запись{% endif %} — {{ block.super }}
+{% endblock %}
+
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <h1>{% if object %}Редактирование{% else %}Новая запись{% endif %}</h1>
+
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <!-- Поле: Заголовок -->
+                <div id="div_id_title" class="form-group">
+                    <label for="id_title" class="requiredField">
+                        Заголовок<span class="asteriskField">*</span>
+                    </label>
+                    <div>
+                        <input type="text" name="title" maxlength="200" class="textinput form-control" required id="id_title">
+                    </div>
+                </div>
+
+                <!-- Поле: Содержимое -->
+                <div id="div_id_content" class="form-group">
+                    <label for="id_content" class="requiredField">
+                        Содержимое<span class="asteriskField">*</span>
+                    </label>
+                    <div>
+                        <textarea name="content" cols="40" rows="10" class="textarea form-control" required id="id_content"></textarea>
+                    </div>
+                </div>
+
+                <!-- Поле: Превью-изображение -->
+                <div id="div_id_preview_image" class="form-group">
+                    <label for="id_preview_image">Превью-изображение</label>
+                    <div class="mb-2">
+                        <div class="form-control custom-file" style="border: 0;">
+                            <input type="file" name="preview_image" class="custom-file-input" accept="image/*" id="id_preview_image">
+                            <label class="custom-file-label text-truncate" for="id_preview_image">---</label>
+
+                            <!-- JS: отображает имя выбранного файла -->
+                            <script type="text/javascript" id="script-id_preview_image">
+                                document.getElementById("script-id_preview_image").parentNode
+                    .querySelector('.custom-file-input').onchange = function(e) {
+                        var filenames = "";
+                        for (let i = 0; i < e.target.files.length; i++) {
+                            filenames += (i > 0 ? ", " : "") + e.target.files[i].name;
+                        }
+                        e.target.parentNode.querySelector('.custom-file-label').textContent = filenames;
+                    };
+                </script>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Поле: Опубликовано (чекбокс) -->
+                <div class="form-group">
+                    <div id="div_id_is_published" class="custom-control custom-checkbox">
+                        <input type="checkbox" name="is_published" class="checkboxinput custom-control-input" id="id_is_published">
+                        <label for="id_is_published" class="custom-control-label">Опубликовано</label>
+                    </div>
+                </div>
+
+
+                <!-- Кнопки: Отправить и Вернуться -->
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary">
+                        {% if object %}Сохранить изменения{% else %}Опубликовать{% endif %}
+                    </button>
+                    <a href="{% url 'blog:post_list' %}" class="btn btn-secondary">Вернуться к списку</a>
+                </div>
+            </form>
+
+            <!-- Вывод ошибок валидации -->
+            {% if form.errors %}
+                <div class="alert alert-danger mt-3">
+                    <strong>Ошибки валидации:</strong>
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <p><strong>{{ field }}:</strong> {{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
