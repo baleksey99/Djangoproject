@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Мой сайт{% endblock %}</title>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+          rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNPnPvoWAqd400k0AxK0kS7i0v/6+6/7+8+9+10" crossorigin="anonymous">
+
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'blog:post_list' %}">Блог</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'blog:post_list' %}">Все записи</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'blog:post_create' %}">Создать</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        {% block content %}
+
+        {% endblock %}
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+            integrity="sha384-oBQa6yE/JMCmOYcd+Q6QYAYq5a59+5/6+7+8+9+10" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBzce2zEwB+e/I89UUI9YHnzyq+fwb/6+7+8+9+10" crossorigin="anonymous"></script>
+
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

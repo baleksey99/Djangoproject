@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <article>
+        <h1>{{ post.title }}</h1>
+        {% if post.preview_image %}
+            <img src="{{ post.preview_image.url }}" class="img-fluid mb-3" alt="{{ post.title }}">
+        {% endif %}
+        <div class="content">{{ post.content|linebreaks }}</div>
+        <hr>
+        <small class="text-muted">
+            Опубликовано: {{ post.created_at|date:"d.m.Y H:i" }}
+            | Просмотров: {{ post.views_count }}
+        </small>
+    </article>
+    <div class="mt-4">
+        <a href="{% url 'blog:post_update' post.pk %}" class="btn btn-secondary">Редактировать</a>
+        <a href="{% url 'blog:post_delete' post.pk %}" class="btn btn-danger">Удалить</a>
+    </div>
+</div>
+{% endblock %}
