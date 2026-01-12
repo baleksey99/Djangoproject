@@ -193,3 +193,18 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+# Node.js
+node_modules/
+npm-debug.log
+package-lock.json  # если используете yarn, иначе оставьте
+
+
+# Статика Django
+staticfiles/
+static/
+
+# Другие стандартные игнорируемые файлы
+.env
+*.pyc
+__pycache__/
+.DS_Store
