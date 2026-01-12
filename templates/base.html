@@ -1,23 +1,26 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{% block title %}Мой сайт{% endblock %}</title>
 
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+    <!-- Bootstrap 4 CSS (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
           rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNPnPvoWAqd400k0AxK0kS7i0v/6+6/7+8+9+10" crossorigin="anonymous">
+          integrity="sha384-B0vJP4x4vH+6+5w5/6+7+8+9+10"
+          crossorigin="anonymous">
 
-
+    <!-- Блок для дополнительных CSS -->
     {% block extra_css %}{% endblock %}
 </head>
 <body>
+    <!-- Шапка с навигацией -->
     <header class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
         <div class="container">
             <a class="navbar-brand" href="{% url 'blog:post_list' %}">Блог</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -33,19 +36,26 @@
         </div>
     </header>
 
+    <!-- Основной контент -->
     <main class="container">
         {% block content %}
-
+            <!-- Здесь будет отображаться контент дочерних шаблонов -->
         {% endblock %}
     </main>
 
+    <!-- Подключаем JavaScript (в конце body) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSS1nX7/6+5/6+7+8+9+10"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+            integrity="sha384-eH/6+5w5/6+7+8+9+10"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+            integrity="sha384-vC/6+5w5/6+7+8+9+10"
+            crossorigin="anonymous"
+            defer></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-            integrity="sha384-oBQa6yE/JMCmOYcd+Q6QYAYq5a59+5/6+7+8+9+10" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-            integrity="sha384-BBzce2zEwB+e/I89UUI9YHnzyq+fwb/6+7+8+9+10" crossorigin="anonymous"></script>
-
-
+    <!-- Блок для дополнительных JS -->
     {% block extra_js %}{% endblock %}
 </body>
 </html>
