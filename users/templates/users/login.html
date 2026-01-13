@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход</title>
+</head>
+<body>
+    <h2>Вход в аккаунт</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <p>
+            <label for="{{ form.username.id_for_label }}">Email:</label>
+            {{ form.username }}
+        </p>
+
+        <p>
+            <label for="{{ form.password.id_for_label }}">Пароль:</label>
+            {{ form.password }}
+        </p>
+
+        <button type="submit">Войти</button>
+    </form>
+
+    <!-- Вывод ошибок аутентификации -->
+    {% if form.non_field_errors %}
+        <div style="color: red;">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <p>
+        <a href="{% url 'users:password_reset' %}">Забыли пароль?</a>  <!-- Если есть app_name -->
+    </p>
+    <p>
+        <a href="{% url 'users:register' %}">Нет аккаунта? Зарегистрироваться</a>  <!-- Если есть app_name -->
+    </p>
+</body>
+</html>
