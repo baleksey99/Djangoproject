@@ -1,5 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import User
+from django.conf import settings
+
 
 class Category(models.Model):
     name = models.CharField(_('Название'), max_length=255)
@@ -10,7 +13,6 @@ class Category(models.Model):
     class Meta:
         verbose_name = _('Категория')
         verbose_name_plural = _('Категории')
-
 
 class Product(models.Model):
     name = models.CharField(_('Наименование'), max_length=255)
@@ -37,6 +39,18 @@ class Product(models.Model):
         _('Дата последнего изменения'),
         auto_now=True
     )
+    is_published = models.BooleanField(
+        default=False,
+        verbose_name=_('Опубликован')
+    )
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='products',
+        verbose_name=_('Владелец'),
+        null=True,
+        blank=True
+    )
 
     def __str__(self):
         return self.name
@@ -44,3 +58,6 @@ class Product(models.Model):
     class Meta:
         verbose_name = _('Продукт')
         verbose_name_plural = _('Продукты')
+        permissions = [
+            ("can_unpublish_product", "Может отменять публикацию продукта"),
+        ]

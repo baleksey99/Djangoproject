@@ -20,7 +20,31 @@
     
     <p><strong>Дата создания:</strong> {{ product.created_at|date:"d.m.Y H:i" }}</p>
     <p><strong>Последнее обновление:</strong> {{ product.updated_at|date:"d.m.Y H:i" }}</p>
-    
-    <a href="{% url 'catalog:home' %}" class="btn btn-secondary">Вернуться на главную</a>
+
+    <!-- Кнопки действий -->
+    <div class="mt-3">
+        <a href="{% url 'catalog:home' %}" class="btn btn-secondary">Вернуться на главную</a>
+
+
+        <!-- «Снять с публикации» (только для модераторов) -->
+        {% if perms.catalog.can_unpublish_product %}
+            <a
+                href="{% url 'catalog:unpublish_product' product.pk %}"
+                class="btn btn-warning"
+            >
+                Снять с публикации
+            </a>
+        {% endif %}
+
+        <!-- «Удалить» (только для пользователей с правом delete_product) -->
+        {% if perms.catalog.delete_product %}
+            <a
+                href="{% url 'catalog:product_delete' product.pk %}"
+                class="btn btn-danger"
+            >
+                Удалить
+            </a>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}
