@@ -160,3 +160,20 @@ DEFAULT_FROM_EMAIL = os.getenv('EMAIL_USER')   # адрес «от кого»
 
 EMAIL_HOST_USER = config('EMAIL_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_PASSWORD')
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",  # DB 1 для кеша
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "SOCKET_CONNECT_TIMEOUT": 5,  # сек
+            "SOCKET_TIMEOUT": 5,            # сек
+            "RETRY_ON_TIMEOUT": True,
+        }
+    }
+}
+
+# Опционально: настройка сессии через Redis
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+SESSION_CACHE_ALIAS = "default"

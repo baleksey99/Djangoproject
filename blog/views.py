@@ -1,3 +1,5 @@
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 from django.urls import reverse
 from django.views.generic import (
     ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -6,6 +8,7 @@ from django.urls import reverse_lazy
 from .models import BlogPost
 from .forms import BlogPostForm
 
+@method_decorator(cache_page(60 * 15), name='dispatch')
 class BlogPostListView(ListView):
     model = BlogPost
     template_name = 'blog/post_list.html'
@@ -16,7 +19,7 @@ class BlogPostListView(ListView):
         return BlogPost.objects.filter(is_published=True).order_by('-created_at')
 
 
-
+@method_decorator(cache_page(60 * 15), name='dispatch')
 class BlogPostDetailView(DetailView):
     model = BlogPost
     template_name = 'blog/post_detail.html'
