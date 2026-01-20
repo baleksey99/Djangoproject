@@ -6,65 +6,54 @@ FORBIDDEN_WORDS = {
     'дешево', 'бесплатно', 'обман', 'полиция', 'радар'
 }
 
-
 class ProductForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        # Общие стили для всех полей (Bootstrap 5)
         for field_name, field in self.fields.items():
             field.widget.attrs.update({
                 'class': 'form-control',
                 'placeholder': f'Введите {field.label.lower()}...',
                 'aria-label': field.label
             })
-
-        # Индивидуальные настройки
         self.fields['name'].widget.attrs.update({
             'autofocus': True,
             'maxlength': '255',
-            'placeholder': 'Например: Смартфон Apple iPhone 15',
+            'placeholder': 'Например: Смартфон Apple iPhone 15',
             'style': 'font-size: 1.1rem; font-weight: 500;'
         })
-
         self.fields['description'].widget.attrs.update({
             'rows': 6,
-            'style': (
-                'resize: vertical; '
-                'font-size: 1rem; '
-                'line-height: 1.5;'
-            ),
+            'style': 'resize: vertical; font-size: 1rem; line-height: 1.5;',
             'placeholder': 'Подробно опишите товар, его особенности и преимущества...'
         })
-
         self.fields['price'].widget.attrs.update({
             'step': '0.01',
             'min': '0',
-            'style': (
-                'text-align: right; '
-                'font-weight: bold; '
-                'font-size: 1.2rem;'
-            ),
+            'style': 'text-align: right; font-weight: bold; font-size: 1.2rem;',
             'placeholder': '0.00',
             'aria-describedby': 'priceHelp'
         })
-
         self.fields['category'].widget.attrs.update({
-            'class': 'form-select',  # Bootstrap-стиль для select
+            'class': 'form-select',
             'placeholder': 'Выберите категорию...',
             'aria-label': 'Категория товара'
         })
-
         self.fields['image'].widget.attrs.update({
             'class': 'form-control-file',
             'accept': 'image/*',
             'title': 'Загрузите изображение товара (JPG, PNG)',
             'aria-label': 'Изображение товара'
         })
+        if 'is_published' in self.fields:
+            self.fields['is_published'].widget.attrs.update({
+                'class': 'form-check-input',
+                'style': 'margin-left: 0.5rem;'
+            })
 
     class Meta:
         model = Product
-        fields = ['name', 'description', 'image', 'category', 'price']
+        fields = ['name', 'description', 'image', 'category', 'price', 'is_published']
+
 
     def clean_name(self):
         name = self.cleaned_data.get('name')
@@ -79,7 +68,6 @@ class ProductForm(forms.ModelForm):
             raise forms.ValidationError('Описание содержит запрещённые слова.')
         return description
 
-
     def clean_price(self):
         price = self.cleaned_data.get('price')
         if price is not None and price < 0:
@@ -87,5 +75,7 @@ class ProductForm(forms.ModelForm):
         return price
 
     def contains_forbidden_words(self, text: str) -> bool:
+        if not text:
+            return False
         words = text.lower().split()
         return any(word in FORBIDDEN_WORDS for word in words)

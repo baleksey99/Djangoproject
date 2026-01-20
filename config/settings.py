@@ -146,10 +146,7 @@ AUTH_USER_MODEL = 'users.CustomUser'
 LOGIN_URL = '/login/'  # URL для перенаправления неавторизованных
 LOGIN_REDIRECT_URL = '/'  # Куда перенаправлять после входа
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
 
-# Дополнительные настройки (раскройте при необходимости)
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

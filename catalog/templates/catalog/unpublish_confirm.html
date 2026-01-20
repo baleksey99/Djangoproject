@@ -1,0 +1,8 @@
+
+<h1>Снять с публикации?</h1>
+<p>Вы действительно хотите снять с публикации «{{ product.name }}»?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Да, снять</button>
+    <a href="{% url 'catalog:product_detail' product.pk %}">Отмена</a>
+</form>

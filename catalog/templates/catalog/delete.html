@@ -1,15 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
-{% load widget_tweaks %}
 
 {% block content %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
-    <!-- Проверка авторизации -->
-    {% if not user.is_authenticated %}
+    <!-- Проверка прав на удаление -->
+    {% if not perms.catalog.delete_product %}
         <div class="alert alert-warning">
-            <p>Вам нужно войти в аккаунт, чтобы выполнить это действие.</p>
-            <a href="{% url 'login' %}" class="btn btn-primary">Войти</a>
+            <p>У вас нет прав для удаления этого продукта.</p>
+            <a href="{% url 'catalog:product_detail' product.pk %}" class="btn btn-secondary">Назад</a>
         </div>
     {% else %}
         <h1>Удалить «{{ product.name }}»?</h1>
