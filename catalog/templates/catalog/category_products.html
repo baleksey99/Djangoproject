@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ category.name }} — Каталог товаров{% endblock %}
+
+
+{% block content %}
+<div class="category-detail">
+    <h1>{{ category.name }}</h1>
+
+
+    <p>В категории {{ products.count }} товаров.</p>
+
+    {% if products %}
+        <ul class="product-list">
+        {% for product in products %}
+            <li>
+                <h3>
+                    <a href="{% url 'catalog:product_detail' product.pk %}">
+                        {{ product.name }}
+                    </a>
+                </h3>
+                <p class="price">Цена: {{ product.price }} руб.</p>
+
+                <!-- Если есть кнопка "В корзину" -->
+                <!-- <button class="btn">В корзину</button> -->
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>В этой категории пока нет товаров.</p>
+    {% endif %}
+
+    <a href="{% url 'catalog:product_list' %}" class="btn">
+        ← Вернуться к списку всех товаров
+    </a>
+</div>
+{% endblock %}

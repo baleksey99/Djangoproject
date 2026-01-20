@@ -51,6 +51,11 @@ class Product(models.Model):
         null=True,
         blank=True
     )
+    # НОВОЕ ПОЛЕ: счётчик просмотров
+    views_count = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_('Количество просмотров')
+    )
 
     def __str__(self):
         return self.name
